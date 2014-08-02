@@ -1,0 +1,11 @@
+pagelist(
+	  [[Kurzgebratene Walnüsse mit Shiitake]]
+	, [[Seitanfleisch in Hokkaidokürbis]]
+	, [[Vegetarische Abalone]]
+	, [[Karottenkroketten]]
+	, [[Tofuhaut mit Sprossen gefüllt nach Szechuanart]]
+	, [[Kräuterseitling_und_Pinienkern]]
+	, [[Seitan]]
+) {
+	putintocat("Buddhistische Tempelküche");
+}

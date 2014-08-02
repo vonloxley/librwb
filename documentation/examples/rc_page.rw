@@ -1,0 +1,6 @@
+
+recent(100) {
+    pagelist([[Sushi-Reis]], [[Sushi]], [[asd]]){
+	    printtitle();
+    }
+}
