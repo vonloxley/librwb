@@ -26,7 +26,7 @@ hs_err_pid*
 
 logindat.rwb
 /src/Rwb/Parser/*
-!/src/Rwb/Parser/CatBot.jj
+!/src/Rwb/Parser/Bot.jj
 !/src/Rwb/Parser/BotAst.java
 !/src/Rwb/Parser/Makefile
 /documentation/*.html

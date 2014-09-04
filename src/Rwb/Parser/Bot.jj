@@ -1,0 +1,265 @@
+
+options {
+  LOOKAHEAD = 1;
+  CHOICE_AMBIGUITY_CHECK = 2;
+  OTHER_AMBIGUITY_CHECK = 1;
+  STATIC = false;
+  DEBUG_PARSER = false;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  JAVA_UNICODE_ESCAPE = false;
+  UNICODE_INPUT = true;
+  IGNORE_CASE = false;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  JDK_VERSION = "1.5";
+  BUILD_PARSER = true;
+  BUILD_TOKEN_MANAGER = true;
+  SANITY_CHECK = true;
+  FORCE_LA_CHECK = false;
+  JAVA_TEMPLATE_TYPE = "modern";
+}
+
+PARSER_BEGIN(CatBot)
+package Rwb.Parser;
+
+import Rwb.Commands.CatOrganizeBuilder;
+import Rwb.Commands.CommandException;
+import Rwb.Commands.WikiCommand;
+import Rwb.Generators.PageGenerator;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Deque;
+
+public class CatBot extends BotAst{
+
+  public static void main(String args[]) throws ParseException, CommandException {
+
+    CatBot parser = new CatBot(""
+            + "summary(\"Sum outer\");" +"\n"
+            + "organize() {" + "\n"
+            + "summary(\"Sum inner2\");" +"\n"
+            + "[[Vegetarische Rezepte]], [[Suppen]] --> [[Vegetarische Suppe]];" + "\n"
+            + "[[Vegetarische Rezepte]], [[Vorspeisen]] --> [[Vegetarische Vorspeise]];" + "\n"
+            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] --> [[Vegetarische Hauptspeise]];" + "\n"
+            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] <-- [[Vegetarische Hauptspeise]];" + "\n"
+            + "}" + "\n"
+            + "commit();" + "\n"
+	    + "recent(100){putintocat(\"Recent\");}" + "\n"
+	    + "search(\"Canneloni\"){printtitle();}" + "\n"
+	    + "recent(100){pagelist([[P1]]) {putintocat(\"Recent100P1\");}}" + "\n"
+            + "pagelist([[P1]]) {" + "\n"
+            + "putintocat(\"Cat1\");" + "\n"
+            + "}" + "\n"
+            + "pagelist([[P1]], [[P2]]) {" + "\n"
+            + "putintocat(\"Cat1\");" + "\n"
+            + "putintocat(\"Cat2\");" + "\n"
+	    + "replace(\"Test(\\\\d{2})\", \"Answer$1\");" + "\n"
+            + "}" + "\n"
+            + "addexclude(\"<gallery>\",\"</gallery>\");" + "\n"
+            + "resetexcludes();" + "\n"
+            + "");
+    List<WikiCommand> wcl = parser.Input();
+      for (WikiCommand wikiCommand : wcl) {
+          //wikiCommand.execute(RezepteWiki.buildAndLogin());
+	  System.out.println(wikiCommand);
+      }
+  }
+
+}
+
+PARSER_END(CatBot)
+
+/* Lexer */
+
+SKIP :
+{
+  " "
+  | "\t"
+  | "\n"
+  | "\r"
+}
+
+TOKEN:
+{
+	< T_SEMI: 	";"							>
+  |	< T_COMMA:	","							>
+  |	< T_LCURL:	"{"							>
+  |	< T_RCURL:	"}"							>
+  |	< T_LPAREN:	"("							>
+  |	< T_RPAREN:	")"							>
+  |	< T_PLUS:	"+"							>
+  |	< T_MINUS:	"-"							>
+  |	< T_ORGANIZE:	"organize" 						>
+  |	< T_RPIPE:	"-->"							>
+  |	< T_LPIPE:	"<--"							>
+  |	< T_LETTER:	[ "A"-"Z", "a"-"z" ]					>
+  |	< T_INT:	( [ "0"-"9" ] )+					>
+  |	< T_PUNCT:	( "." | "-" | "_" )					>
+  |	< T_DIGIT:	[ "0"-"9" ]						>
+  |	< T_CMD:	<T_LETTER> ( <T_LETTER> | <T_DIGIT> | <T_PUNCT> )*	>
+
+}
+
+TOKEN:
+{
+	< T_SQUOTE:	"\""	>: STRING_STATE
+  |	< T_SCQUOTE:	"[["	>: CAT_STATE
+}
+
+<STRING_STATE> TOKEN:
+{
+	< T_EQUOTE:	"\"" 		> : DEFAULT
+  //|	< T_CHAR:	~["\"", "\\"]	>
+  |	< T_CHAR:	~["\""]	>
+}
+
+<CAT_STATE> TOKEN:
+{
+	< T_ECQUOTE:	"]]" 		> : DEFAULT
+  |	< T_CCHAR:	~["\\", "]"]	>
+}
+
+/* Parser */
+
+List<WikiCommand> Input() :
+{}
+{
+  ( Generator() )* <EOF>
+  {
+    createAndAddCommand(new Token(jj_kind, "commit"), null);
+    return cl;
+  }
+}
+
+void Generator() :
+{
+  PageGenerator pg = null;
+  Deque<Object> pl = null;
+  Token command;
+}
+{   
+    <T_ORGANIZE> <T_LPAREN> <T_RPAREN> <T_LCURL> ( BlkCommand() )+ <T_RCURL>
+  | command=<T_CMD> <T_LPAREN> [ pl=ParameterList() ] <T_RPAREN> { createAndAddCommand(command, pl); } (
+    <T_SEMI> 
+    | <T_LCURL> ( BlkCommand() )+ <T_RCURL> { if (!generatorstack.isEmpty()) generatorstack.removeFirst(); }
+  )
+}
+
+void BlkCommand() :
+{}
+{  
+  (  
+    CatOrganize()
+    | Generator()
+  )
+}
+
+Deque<Object> ParameterList() :
+{
+  Deque<Object> pl = new ArrayDeque<Object>();
+}
+{
+   ( Parameter(pl) ) ( <T_COMMA> Parameter(pl) )*
+   { return pl; }
+}
+
+void Parameter(Deque<Object> pl) :
+{
+  Object result;
+  Token t;
+}
+{
+    ( t = <T_INT> {result = Integer.decode(t.image);} | result = string() | result = Cat() )
+    {pl.add(result);}
+}
+
+void CatOrganize() :
+{
+  List<String> c1; 
+  String c2; 
+  Token t1; 
+  CatOrganizeBuilder cb = new CatOrganizeBuilder();
+}
+{
+  c1=CatList() ( t1=<T_RPIPE> | t1=<T_LPIPE> ) c2=Cat() <T_SEMI>
+  {
+    cb.setSourceParam(c1);
+    cb.setDestParam(c2);
+    cb.setAddToDestParam((t1.image.equals("-->")));
+    cl.add(cb.createCatOrganize());
+  }
+}
+
+List<String> CatList() :
+{
+  String s;
+  List<String> sl=new ArrayList<String>();
+}
+{
+  ( s=Cat()  {sl.add(s);} ) ( <T_COMMA>  s=Cat()  {sl.add(s);} )*
+
+  { return sl; }
+}
+
+String Cat() :
+{
+  StringBuilder builder = new StringBuilder();
+}
+{
+  <T_SCQUOTE> ( getChar(builder) )* <T_ECQUOTE>
+  {
+    return builder.toString();
+  }
+}
+
+/**
+ * Match a quoted string.
+ */
+String string() :
+{
+  StringBuilder builder = new StringBuilder();
+}
+{
+  <T_SQUOTE> ( getChar(builder) )* <T_EQUOTE>
+  {
+    return builder.toString();
+  }
+}
+
+/**
+ * Match char inside quoted string.
+ */
+void getChar(StringBuilder builder):
+{
+  Token t;
+}
+{
+  //( t = <T_CHAR> | t = <T_CNTRL_ESC> | t = <T_CCHAR> )
+  ( t = <T_CHAR> | t = <T_CCHAR> )
+  {
+    if (t.image.length() < 2)
+    {
+      // CHAR
+      builder.append(t.image.charAt(0));
+    }
+    else if (t.image.length() < 6)
+    {
+      // ESC
+      char c = t.image.charAt(1);
+      switch (c)
+      {
+/*
+	case 'b': builder.append((char) 8); break;
+        case 'f': builder.append((char) 12); break;
+        case 'n': builder.append((char) 10); break;
+        case 'r': builder.append((char) 13); break;
+        case 't': builder.append((char) 9); break;
+*/
+        default: builder.append(c);
+      }
+    }
+  }
+}
