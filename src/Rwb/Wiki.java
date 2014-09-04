@@ -53,7 +53,7 @@ public class Wiki extends org.wikipedia.Wiki {
         ignorepositions = new ArrayList<>(4);
         addIgnorePosition("<nowiki>", "</nowiki>");
         addIgnorePosition("<!--", "-->");
-        addIgnorePosition("\\r?\\n=+", "\\r?\\n=+");
+        addIgnorePosition("\\r?\\n=+", "\\r?\\n?=+");
         addIgnorePosition("<pre>", "</pre>");
         addIgnorePosition("<gallery", "</gallery>");
     }
