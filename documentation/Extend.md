@@ -14,7 +14,7 @@ WikiBlockCommand.
 
 Generators need to implement the ```PageGenerator```-interface.
 
-Commands and generators get their parameters passed as a Stack (Deque). Blockcommands get a 
+Commands and generators get their parameters passed as a stack (Deque). Blockcommands get a 
 PageGenerator via their ```setPageGenerator```-method and must call its 
 ```generatePages```-method to get the pages they should work on.
 
