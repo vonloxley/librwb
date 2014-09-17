@@ -337,8 +337,10 @@ public class Wiki extends org.wikipedia.Wiki {
      * @param payload 
      */
     public void putToCache(String ident, List<String> payload) {
-        if (catcache == null) {
-            catcache = new ConcurrentHashMap<>();
+        synchronized(this){
+            if (catcache == null) {
+                catcache = new ConcurrentHashMap<>();
+            }
         }
         catcache.put(ident, payload);
     }
