@@ -35,6 +35,7 @@ import Rwb.Generators.PageGenerator;
 import Rwb.Generators.PageList;
 import Rwb.Generators.RecentChanges;
 import Rwb.Generators.Search;
+import Rwb.Generators.SearchNS;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -76,6 +77,7 @@ class BotAst {
      */
     protected void createAndAddCommand(Token command, Deque parameters) throws ParseException {
         if (command.image.equals("search")
+		|| command.image.equals("searchns")
                 || command.image.equals("pagelist")
                 || command.image.equals("linksto")
                 || command.image.equals("recent")) {
@@ -176,6 +178,9 @@ class BotAst {
                 break;
             case "search":
                 pg = new Search();
+                break;
+            case "searchns":
+                pg = new SearchNS();
                 break;
             case "linksto":
                 pg = new LinksTo();

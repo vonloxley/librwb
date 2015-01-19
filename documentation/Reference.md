@@ -29,6 +29,15 @@ Erwartet einen Parameter.
 search("Suchtext"){}
 ```
 
+### Searchns
+Führt eine Volltextsuche im Wiki durch und liefert alle Seiten, auf denen sich
+ein Treffer befindet. Die Suche berücksichtigt keine Groß-\ /\ Kleinschreibung.
+Erwartet mindestens zwei Parameter, Suchtext und Namespaces
+
+```
+search("Suchtext", 0, 111, 113){}
+```
+
 ### Linksto
 Liefert alle Seiten, die auf eine als Parameter übergebene Seite verweisen. 
 Entspricht dem Versweis „Was zeigt hierhin“.
