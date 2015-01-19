@@ -1,33 +1,16 @@
-# Created by http://www.gitignore.io
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
-
-
-### Java ###
-*.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
 
 logindat.rwb
-/src/Rwb/Parser/*
-!/src/Rwb/Parser/Bot.jj
-!/src/Rwb/Parser/BotAst.java
-!/src/Rwb/Parser/Makefile
+/src/main/java/Rwb/Parser/*
+!/src/main/java/Rwb/Parser/Bot.jj
+!/src/main/java/Rwb/Parser/BotAst.java
+!/src/main/java/Rwb/Parser/Makefile
 /documentation/*.html
 /libs
