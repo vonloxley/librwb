@@ -38,6 +38,8 @@ public class CatBot extends BotAst{
   public static void main(String args[]) throws ParseException, CommandException {
 
     CatBot parser = new CatBot(""
+	    + "searchns(\"main\",0){printtitle();}" +"\n"
+	    + "searchns(\"main+111+115\",0, 111, 115){printtitle();}" +"\n"
             + "summary(\"Sum outer\");" +"\n"
             + "organize() {" + "\n"
             + "summary(\"Sum inner2\");" +"\n"
