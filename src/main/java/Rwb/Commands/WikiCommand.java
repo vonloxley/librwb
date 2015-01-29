@@ -29,16 +29,16 @@ public interface WikiCommand {
 
     /**
      * Called when this command should execute.
-     * 
+     *
      * @param rwiki Wiki-instance to work with.
      * @throws CommandException
      */
-    public void execute(Wiki rwiki) throws CommandException;
+    void execute(Wiki rwiki) throws CommandException;
 
     /**
      * Sets this commands parameters.
      *
      * @param parameter A stack of parameters for this generator.
      */
-    public void setParameter(Deque<Object> parameter);
+    void setParameter(Deque<Object> parameter);
 }

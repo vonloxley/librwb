@@ -55,15 +55,15 @@ public class CatPutRemove implements WikiBlockCommand {
             try {
                 String pagetext = rwiki.getPageText(p);
                 String newpagetext = pagetext;
-                
+
                 for (String string : category) {
                     newpagetext = Categories.putOrRemoveCategory(newpagetext, string, put, rwiki);
                 }
-                
-                
+
+
                 if (!pagetext.equals(newpagetext)) {
                     Wiki.printDiff(p, pagetext, newpagetext, org.fusesource.jansi.AnsiConsole.out);
-                    
+
                     if (rwiki.getGo()) {
                         try {
                             rwiki.edit(p, newpagetext, rwiki.getSummary());
@@ -71,10 +71,10 @@ public class CatPutRemove implements WikiBlockCommand {
                             Logger.getLogger(CatOrganize.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    
+
                 }
             } catch (java.io.FileNotFoundException ex) {
-                continue;                
+                // continue
             } catch (IOException ex) {
                 Logger.getLogger(CatPutRemove.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -100,6 +100,6 @@ public class CatPutRemove implements WikiBlockCommand {
 
             category.add((String) o);
         }
-        
+
     }
 }

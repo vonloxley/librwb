@@ -32,5 +32,5 @@ public interface WikiBlockCommand extends WikiCommand {
      *
      * @param pagegen Pagegenerator to work with.
      */
-    public void setPageGenerator(PageGenerator pagegen);
+    void setPageGenerator(PageGenerator pagegen);
 }

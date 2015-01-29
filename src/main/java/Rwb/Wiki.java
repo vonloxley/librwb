@@ -57,13 +57,13 @@ public class Wiki extends org.wikipedia.Wiki {
         addIgnorePosition("<pre>", "</pre>");
         addIgnorePosition("<gallery", "</gallery>");
     }
-    
+
     /**
-     * Add a block to the ignored blocks.
-     * Start and end may be regular expressions.
+     * Add a block to the ignored blocks. Start and end may be regular
+     * expressions.
      *
      * @param start
-     * @param end 
+     * @param end
      */
     public void addIgnorePosition(String start, String end) {
         if (ignorepositions == null) {
@@ -82,7 +82,7 @@ public class Wiki extends org.wikipedia.Wiki {
         if (pagecache == null) {
             pagecache = new HashMap<>();
         }
-        
+
         commitcache.add(new CommitRecord(title, text, summary, minor, bot, section, basetime));
         pagecache.remove(title); //Invalidate pagecache early on.
     }
@@ -112,10 +112,10 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * Write cached pages to the wiki.
-     * 
+     *
      * @param compressed - Write only one edit containing all changes.
      * @throws IOException
-     * @throws LoginException 
+     * @throws LoginException
      */
     public void commitPagecache(boolean compressed) throws IOException, LoginException {
         if (commitcache != null) {
@@ -188,8 +188,9 @@ public class Wiki extends org.wikipedia.Wiki {
     }
 
     /**
-     * Print diff between two pages and ask the user to accept or decline the edit.
-     * 
+     * Print diff between two pages and ask the user to accept or decline the
+     * edit.
+     *
      * @param title
      * @param pageOrig
      * @param pageNew
@@ -222,13 +223,14 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * Get begin- and end-indices of all ignored blocks in text.
+     *
      * @param text
      * @return Map of begin/end pairs.
      */
     public Map<Integer, Integer> getIgnorePositions(String text) {
         Map<Integer, Integer> im, imn;
         im = new HashMap<>();
-    
+
         if (ignorepositions == null) {
             reInitIgnorePositions();
         }
@@ -265,8 +267,9 @@ public class Wiki extends org.wikipedia.Wiki {
     }
 
     /**
-     * Save this  instance to FileName.
-     * @param FileName 
+     * Save this instance to FileName.
+     *
+     * @param FileName
      */
     public void saveThis(String FileName) {
         ObjectOutputStream out = null;
@@ -319,25 +322,28 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * retrive a {@code List<String>} from cache.
+     *
      * @param ident
-     * @return 
+     * @return
      */
     public List<String> getFromCache(String ident) {
         List<String> r = null;
-        try {
+        
+        if (catcache != null) {
             r = catcache.get(ident);
-        } catch (NullPointerException ex) {
         }
+
         return r;
     }
 
     /**
      * Cache a {@code List<String>}
+     *
      * @param ident
-     * @param payload 
+     * @param payload
      */
     public void putToCache(String ident, List<String> payload) {
-        synchronized(this){
+        synchronized (this) {
             if (catcache == null) {
                 catcache = new ConcurrentHashMap<>();
             }
@@ -347,7 +353,8 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * Delete a {@code List<String>} from cache.
-     * @param ident 
+     *
+     * @param ident
      */
     public void removeFromCache(String ident) {
         if (catcache != null) {
@@ -357,13 +364,13 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * Gets a console or aborts the program.
-     * @return 
+     *
+     * @return
      */
     public static Console getConsole() {
         Console c = System.console();
         if (c == null) {
             Logger.getLogger(Wiki.class.getName()).log(Level.SEVERE, "Konnte keine Konsole bekommen.");
-            new Throwable().printStackTrace();
             System.exit(1);
         }
         return c;
@@ -371,7 +378,8 @@ public class Wiki extends org.wikipedia.Wiki {
 
     /**
      * Ask the user to go ahead or not. May {@link setAllgo}
-     * @return 
+     *
+     * @return
      */
     public boolean getGo() {
         String s;
@@ -399,18 +407,7 @@ public class Wiki extends org.wikipedia.Wiki {
         return go;
     }
 
-    public static class Page {
-
-        public String text;
-        public List<String> removedCategories;
-
-        public Page(String text, List<String> removedCategories) {
-            this.text = text;
-            this.removedCategories = removedCategories;
-        }
-    }
-
-    class IgnorePosition {
+    private static class IgnorePosition {
 
         private String start;
         private String end;

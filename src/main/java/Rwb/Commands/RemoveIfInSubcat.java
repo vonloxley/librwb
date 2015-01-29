@@ -41,14 +41,14 @@ public class RemoveIfInSubcat implements WikiCommand {
         if (cat == null) {
             throw new ParameterException("Removeifinsubcat needs one Parameter: String.");
         }
-        
+
         try {
             List<String> cats = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, 14)));
             List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, 0)));
             List<String> dest = new ArrayList<>();
 
-            for (String cat : cats) {
-                putIntoDstIfInSrc(rwiki, cat, pages, dest);
+            for (String acat : cats) {
+                putIntoDstIfInSrc(rwiki, acat, pages, dest);
             }
 
             for (String title : dest) {

@@ -29,24 +29,24 @@ public class CatOrganizeBuilder {
 
     public CatOrganizeBuilder setSourceParam(List<String> source) {
         this.src = source;
-        
+
         return this;
     }
 
     public CatOrganizeBuilder setDestParam(String dest) {
-        this.dst=dest;
+        this.dst = dest;
 
         return this;
     }
 
     public CatOrganizeBuilder setAddToDestParam(Boolean addtodest) {
-        this.addtodest=addtodest;
-        
+        this.addtodest = addtodest;
+
         return this;
     }
 
     public CatOrganize createCatOrganize() {
-        return new CatOrganize(src,dst, addtodest);
+        return new CatOrganize(src, dst, addtodest);
     }
 
 }

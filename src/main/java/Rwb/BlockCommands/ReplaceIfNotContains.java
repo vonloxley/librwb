@@ -71,7 +71,7 @@ public class ReplaceIfNotContains extends ReplaceBase implements WikiBlockComman
 
                 }
             } catch (java.io.FileNotFoundException ex) {
-                continue;
+                // continue
             } catch (IOException ex) {
                 Logger.getLogger(CatPutRemove.class.getName()).log(Level.SEVERE, null, ex);
             }

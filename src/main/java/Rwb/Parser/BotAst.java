@@ -49,8 +49,8 @@ import java.util.List;
  * Right now there are only sequences and iterations, so it is a list rather
  * than a tree.
  *
- * To add a command extend createCommand, to add a generator extend createGenerator
- * and change createAndAddCommand.
+ * To add a command extend createCommand, to add a generator extend
+ * createGenerator and change createAndAddCommand.
  *
  * @author Niki Hansche
  */
@@ -77,7 +77,7 @@ class BotAst {
      */
     protected void createAndAddCommand(Token command, Deque parameters) throws ParseException {
         if (command.image.equals("search")
-		|| command.image.equals("searchns")
+                || command.image.equals("searchns")
                 || command.image.equals("pagelist")
                 || command.image.equals("linksto")
                 || command.image.equals("recent")) {

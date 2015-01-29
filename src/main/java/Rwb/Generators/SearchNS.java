@@ -17,6 +17,7 @@
 package Rwb.Generators;
 
 import Rwb.ParameterException;
+import Rwb.Utils;
 import Rwb.Wiki;
 import difflib.StringUtills;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class SearchNS implements PageGenerator {
 
 	private PageGenerator parentpg;
 	private String searchterm;
-	private List<Integer> namespaces;
+	private final List<Integer> namespaces;
 
 	public SearchNS() {
 		this.searchterm = null;
@@ -47,7 +48,7 @@ public class SearchNS implements PageGenerator {
 		}
 
 		try {
-			String[][] r = rwiki.search(searchterm, toIntArray(namespaces));
+			String[][] r = rwiki.search(searchterm, Utils.toIntArray(namespaces));
 			for (String[] s : r) {
 				if (!list.contains(s[0])) {
 					list.add(s[0]);
@@ -90,14 +91,5 @@ public class SearchNS implements PageGenerator {
 	@Override
 	public String toString() {
 		return "[SearchNS: " + searchterm + "(" + StringUtills.join(namespaces, ", ") + ")" + "]";
-	}
-
-	private static int[] toIntArray(List<Integer> list) {
-		int[] ret = new int[list.size()];
-		int i = 0;
-		for (Integer e : list) {
-			ret[i++] = e;
-		}
-		return ret;
 	}
 }

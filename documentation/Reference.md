@@ -12,7 +12,7 @@ pagelist([[Seite1]], [[Seite2]]){}
 ```
 
 ### Recent
-Letzt Änderungen. Erwartet einen Parameter mit der Anzahl der letzten
+Letzte Änderungen. Erwartet einen Parameter mit der Anzahl der letzten
 Änderungen, die betrachtet werden sollen. Die Anzahl der zurückgelieferten
 Seiten ist kleiner oder gleich der Anzahl der letzten Änderungen.
 
@@ -39,7 +39,7 @@ search("Suchtext", 0, 111, 113){}
 ```
 
 ### Linksto
-Liefert alle Seiten, die auf eine als Parameter übergebene Seite verweisen. 
+Liefert alle Seiten, die auf eine als Parameter übergebene Seite verweisen.
 Entspricht dem Versweis „Was zeigt hierhin“.
 
 ```
@@ -155,7 +155,7 @@ addexclude("<gallery", "</gallery>");
 
 
 ### Resetexcludes
-Setzt die auszuschließenden Seitenbestandteile auf den Standardwert zurück. 
+Setzt die auszuschließenden Seitenbestandteile auf den Standardwert zurück.
 Keine Parameter.
 
 ```
@@ -227,9 +227,9 @@ commitcompressed();
 ```
 
 Der Bot wird an der Kommandozeile mit dem Befehl
-```java -jar rwb.jar run rs.wb``` getestet. Er wird vor jeder Änderung fragen, 
-ob sie durchgeführt werden soll. Funktioniert er zufriedenstellend, 
-wird mit ```setallgo();``` festgelegt, dass Änderungen automatisch im Wiki eingetragen 
+```java -jar rwb.jar run rs.wb``` getestet. Er wird vor jeder Änderung fragen,
+ob sie durchgeführt werden soll. Funktioniert er zufriedenstellend,
+wird mit ```setallgo();``` festgelegt, dass Änderungen automatisch im Wiki eingetragen
 werden.
 
 ```

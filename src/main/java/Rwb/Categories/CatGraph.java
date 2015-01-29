@@ -19,6 +19,7 @@ package Rwb.Categories;
 
 import Rwb.Wiki;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
@@ -62,7 +63,7 @@ public class CatGraph {
     }
 
     public static void main(String[] args) throws IOException, FailedLoginException {
-        rwiki = new Wiki("http", "rezeptewiki.org", "");
+        rwiki = new Wiki("http", "kochwiki.org", "/w");
         DirectedGraph<String, DefaultEdge> dg = buildcatgraph("Kategorie:Vegetarische Rezepte");
 
         showGraph(dg);
