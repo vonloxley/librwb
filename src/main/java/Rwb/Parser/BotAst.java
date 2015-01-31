@@ -31,6 +31,7 @@ import Rwb.Commands.ResetExcludes;
 import Rwb.Commands.SetAllGo;
 import Rwb.Commands.SetNamespaces;
 import Rwb.Commands.WikiCommand;
+import Rwb.Generators.Category;
 import Rwb.Generators.LinksTo;
 import Rwb.Generators.PageGenerator;
 import Rwb.Generators.PageList;
@@ -79,6 +80,7 @@ class BotAst {
     protected void createAndAddCommand(Token command, Deque parameters) throws ParseException {
         if (command.image.equals("search")
                 || command.image.equals("searchns")
+                || command.image.equals("category")
                 || command.image.equals("pagelist")
                 || command.image.equals("linksto")
                 || command.image.equals("recent")) {
@@ -188,6 +190,9 @@ class BotAst {
                 break;
             case "linksto":
                 pg = new LinksTo();
+                break;
+            case "category":
+                pg = new Category();
                 break;
         }
 
