@@ -162,6 +162,14 @@ Keine Parameter.
 resetexcludes();
 ```
 
+### Setnamespaces
+Setzt die vom Bot zu berücksichtigen Namensräume.
+Erwartet midestens einen Parameter: Int, …
+
+```
+setnamespaces(0, 14);
+```
+
 
 Ein Beispiel
 ------------
