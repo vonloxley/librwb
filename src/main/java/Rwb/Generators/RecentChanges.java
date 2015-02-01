@@ -44,7 +44,7 @@ public class RecentChanges implements PageGenerator {
         }
 
         try {
-            Wiki.Revision[] r = rwiki.recentChanges(count);
+            Wiki.Revision[] r = rwiki.recentChanges(count, rwiki.getWorkingNamespaces());
             for (Wiki.Revision revision : r) {
                 if (!list.contains(revision.getPage())) {
                     list.add(revision.getPage());

@@ -43,8 +43,8 @@ public class RemoveIfInSubcat implements WikiCommand {
         }
 
         try {
-            List<String> cats = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, 14)));
-            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, 0)));
+            List<String> cats = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, Wiki.CATEGORY_NAMESPACE)));
+            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, rwiki.getWorkingNamespaces())));
             List<String> dest = new ArrayList<>();
 
             for (String acat : cats) {

@@ -29,6 +29,7 @@ import Rwb.Commands.RemoveIfInSubcat;
 import Rwb.Commands.RenameCat;
 import Rwb.Commands.ResetExcludes;
 import Rwb.Commands.SetAllGo;
+import Rwb.Commands.SetNamespaces;
 import Rwb.Commands.WikiCommand;
 import Rwb.Generators.LinksTo;
 import Rwb.Generators.PageGenerator;
@@ -126,6 +127,9 @@ class BotAst {
                 break;
             case "renamecat":
                 wc = new RenameCat();
+                break;
+            case "setnamespaces":
+                wc = new SetNamespaces();
                 break;
 
             //Blockcommnads

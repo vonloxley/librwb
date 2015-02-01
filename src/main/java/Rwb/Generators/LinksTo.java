@@ -44,7 +44,7 @@ public class LinksTo implements PageGenerator {
         }
 
         try {
-            String[] r = rwiki.whatLinksHere(destpage, Wiki.MAIN_NAMESPACE);
+            String[] r = rwiki.whatLinksHere(destpage, rwiki.getWorkingNamespaces());
             for (String revision : r) {
                 if (!list.contains(revision)) {
                     list.add(revision);

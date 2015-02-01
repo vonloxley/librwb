@@ -40,6 +40,7 @@ public class Wiki extends org.wikipedia.Wiki {
     private List<CommitRecord> commitcache;
     private Map<String, String> pagecache;
     private List<IgnorePosition> ignorepositions;
+    private List<Integer> workingnamespaces;
 
     public Wiki(String protocoll, String domain, String scriptPath) {
         super(protocoll, domain, scriptPath);
@@ -50,7 +51,7 @@ public class Wiki extends org.wikipedia.Wiki {
      * in pages.
      */
     public final void reInitIgnorePositions() {
-        ignorepositions = new ArrayList<>(4);
+        ignorepositions = new ArrayList<>(5);
         addIgnorePosition("<nowiki>", "</nowiki>");
         addIgnorePosition("<!--", "-->");
         addIgnorePosition("\\r?\\n=+", "\\r?\\n?=+");
@@ -258,7 +259,7 @@ public class Wiki extends org.wikipedia.Wiki {
                 List<String> r;
                 r = getFromCache(cat);
                 if (r == null) {
-                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, true, Wiki.MAIN_NAMESPACE)));
+                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, true, getWorkingNamespaces())));
                 }
                 putToCache(cat, r);
                 return r;
@@ -405,6 +406,18 @@ public class Wiki extends org.wikipedia.Wiki {
             }
         }
         return go;
+    }
+
+    public int[] getWorkingNamespaces() {
+        if (workingnamespaces == null){
+            return new int[]{Wiki.MAIN_NAMESPACE};
+        }
+        
+        return Utils.toIntArray(workingnamespaces);
+    }
+
+    public void setWorkingNamespaces(List<Integer> namespaces) {
+        this.workingnamespaces = namespaces;
     }
 
     private static class IgnorePosition {

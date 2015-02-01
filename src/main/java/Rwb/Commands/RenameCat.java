@@ -44,7 +44,7 @@ public class RenameCat implements WikiCommand {
         }
 
         try {
-            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(fromcat, 0)));
+            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(fromcat, rwiki.getWorkingNamespaces())));
 
             for (String page : pages) {
                 String pagetext;

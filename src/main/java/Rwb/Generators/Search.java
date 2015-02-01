@@ -44,7 +44,7 @@ public class Search implements PageGenerator {
         }
 
         try {
-            String[][] r = rwiki.search(searchterm);
+            String[][] r = rwiki.search(searchterm, rwiki.getWorkingNamespaces());
             for (String[] s : r) {
                 if (!list.contains(s[0])) {
                     list.add(s[0]);
