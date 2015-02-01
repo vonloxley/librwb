@@ -29,6 +29,8 @@ public interface PageGenerator {
     /**
      * Called by BlockCommands. Returns the pages the command shall work on.
      * Must work together with it’a parent-generator.
+     * Please use rwiki.getWorkingNamespaces() to retrieve the list of namespaces
+     * the generator should work with.
      *
      * @param rwiki
      * @return A List of pages.
