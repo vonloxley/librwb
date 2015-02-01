@@ -1,5 +1,6 @@
 package Rwb;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,4 +24,19 @@ public final class Utils {
         return ret;
     }
 
+    public static String joinToString(Collection<?> collection, CharSequence separator) {
+
+        if (collection.isEmpty()) {
+            return "";
+        } else {
+            StringBuilder sepValueBuilder = new StringBuilder();
+
+            for (Object obj : collection) {
+                sepValueBuilder.append(obj).append(separator);
+            }
+            sepValueBuilder.setLength(sepValueBuilder.length() - separator.length());
+
+            return sepValueBuilder.toString();
+        }
+    }
 }
