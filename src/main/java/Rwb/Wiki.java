@@ -42,8 +42,8 @@ public class Wiki extends org.wikipedia.Wiki {
     private List<IgnorePosition> ignorepositions;
     private List<Integer> workingnamespaces;
 
-    public Wiki(String protocoll, String domain, String scriptPath) {
-        super(protocoll, domain, scriptPath);
+    public Wiki(String domain, String scriptPath) {
+        super(domain, scriptPath);
     }
 
     /**

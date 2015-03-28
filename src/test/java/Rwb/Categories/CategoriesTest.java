@@ -60,7 +60,7 @@ public class CategoriesTest {
         System.out.println("removeAllCategoryLinks");
         String page = "Bla\n[[:Kategorie:Jo]]\n[[Kategorie:Raus1]]\n[[Kategorie:Raus2]][[Kategorie:Raus1]]\n[[Kategorie:Raus3]]\n\n";
         Page expResult = new Page("Bla\n[[:Kategorie:Jo]]\n\n\n");
-        Page result = Categories.removeAllCategoryLinks(page, new Rwb.Wiki("http","",""));
+        Page result = Categories.removeAllCategoryLinks(page, new Rwb.Wiki("",""));
         assertEquals(expResult.getText().trim(), result.getText().trim());
     }
 

@@ -63,7 +63,7 @@ public class CatGraph {
     }
 
     public static void main(String[] args) throws IOException, FailedLoginException {
-        rwiki = new Wiki("http", "kochwiki.org", "/w");
+        rwiki = new Wiki("kochwiki.org", "/w");
         DirectedGraph<String, DefaultEdge> dg = buildcatgraph("Kategorie:Vegetarische Rezepte");
 
         showGraph(dg);
