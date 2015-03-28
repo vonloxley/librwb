@@ -139,6 +139,7 @@ public class CatOrganize implements WikiCommand {
 
         } catch (ExecutionException | InterruptedException ex) {
             Logger.getLogger(CatOrganize.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("CategoryError");
         }
 
         return sc;
