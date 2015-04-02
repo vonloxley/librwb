@@ -8,9 +8,5 @@ pom.xml.next
 release.properties
 
 logindat.rwb
-/src/main/java/Rwb/Parser/*
-!/src/main/java/Rwb/Parser/Bot.jj
-!/src/main/java/Rwb/Parser/BotAst.java
-!/src/main/java/Rwb/Parser/Makefile
 /documentation/*.html
 /libs
