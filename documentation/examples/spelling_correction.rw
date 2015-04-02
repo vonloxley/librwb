@@ -1,3 +1,0 @@
-search("am Besten"){
-	replace("am Besten", "am besten");
-}

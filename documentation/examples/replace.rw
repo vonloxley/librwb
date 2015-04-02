@@ -1,7 +1,0 @@
-summary("Bot: Typografische Korrekturen.");
-
-recent(10){
-	replace("(\s)([0-9]+)[ ]*-[ ]*([0-9]+)(\s)", "$1$2–$3$4");
-	replace("(\d+)\s*&nbsp;[º°]([CF])", "{{Grad|$1}}");
-	replace("(\d+)\s*[º°]([CF])", "{{Grad|$1}}");
-}
