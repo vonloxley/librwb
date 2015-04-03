@@ -3,7 +3,6 @@
 package Rwb.Parser;
 
 import Rwb.Commands.CatOrganizeBuilder;
-import Rwb.Commands.CommandException;
 import Rwb.Commands.WikiCommand;
 import Rwb.Generators.PageGenerator;
 import java.util.ArrayDeque;
@@ -12,41 +11,6 @@ import java.util.List;
 import java.util.Deque;
 
 public class CatBot extends BotAst implements CatBotConstants {
-
-  public static void main(String args[]) throws ParseException, CommandException {
-
-    CatBot parser = new CatBot(""
-            + "searchns(\"main\",0){printtitle();}" +"\n"
-            + "searchns(\"main+111+115\",0, 111, 115){printtitle();}" +"\n"
-            + "summary(\"Sum outer\");" +"\n"
-            + "organize() {" + "\n"
-            + "summary(\"Sum inner2\");" +"\n"
-            + "[[Vegetarische Rezepte]], [[Suppen]] --> [[Vegetarische Suppe]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Vorspeisen]] --> [[Vegetarische Vorspeise]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] --> [[Vegetarische Hauptspeise]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] <-- [[Vegetarische Hauptspeise]];" + "\n"
-            + "}" + "\n"
-            + "commit();" + "\n"
-            + "recent(100){putintocat(\"Recent\");}" + "\n"
-            + "search(\"Canneloni\"){printtitle();}" + "\n"
-            + "recent(100){pagelist([[P1]]) {putintocat(\"Recent100P1\");}}" + "\n"
-            + "pagelist([[P1]]) {" + "\n"
-            + "putintocat(\"Cat1\");" + "\n"
-            + "}" + "\n"
-            + "pagelist([[P1]], [[P2]]) {" + "\n"
-            + "putintocat(\"Cat1\");" + "\n"
-            + "putintocat(\"Cat2\");" + "\n"
-            + "replace(\"Test(\\\\d{2})\", \"Answer$1\");" + "\n"
-            + "}" + "\n"
-            + "addexclude(\"<gallery>\",\"</gallery>\");" + "\n"
-            + "resetexcludes();" + "\n"
-            + "");
-    List<WikiCommand> wcl = parser.Input();
-      for (WikiCommand wikiCommand : wcl) {
-          //wikiCommand.execute(RezepteWiki.buildAndLogin());
-          System.out.println(wikiCommand);
-      }
-  }
 
 /* Parser */
   final public 

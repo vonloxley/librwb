@@ -25,7 +25,6 @@ PARSER_BEGIN(CatBot)
 package Rwb.Parser;
 
 import Rwb.Commands.CatOrganizeBuilder;
-import Rwb.Commands.CommandException;
 import Rwb.Commands.WikiCommand;
 import Rwb.Generators.PageGenerator;
 import java.util.ArrayDeque;
@@ -34,41 +33,6 @@ import java.util.List;
 import java.util.Deque;
 
 public class CatBot extends BotAst{
-
-  public static void main(String args[]) throws ParseException, CommandException {
-
-    CatBot parser = new CatBot(""
-	    + "searchns(\"main\",0){printtitle();}" +"\n"
-	    + "searchns(\"main+111+115\",0, 111, 115){printtitle();}" +"\n"
-            + "summary(\"Sum outer\");" +"\n"
-            + "organize() {" + "\n"
-            + "summary(\"Sum inner2\");" +"\n"
-            + "[[Vegetarische Rezepte]], [[Suppen]] --> [[Vegetarische Suppe]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Vorspeisen]] --> [[Vegetarische Vorspeise]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] --> [[Vegetarische Hauptspeise]];" + "\n"
-            + "[[Vegetarische Rezepte]], [[Hauptspeisen]] <-- [[Vegetarische Hauptspeise]];" + "\n"
-            + "}" + "\n"
-            + "commit();" + "\n"
-	    + "recent(100){putintocat(\"Recent\");}" + "\n"
-	    + "search(\"Canneloni\"){printtitle();}" + "\n"
-	    + "recent(100){pagelist([[P1]]) {putintocat(\"Recent100P1\");}}" + "\n"
-            + "pagelist([[P1]]) {" + "\n"
-            + "putintocat(\"Cat1\");" + "\n"
-            + "}" + "\n"
-            + "pagelist([[P1]], [[P2]]) {" + "\n"
-            + "putintocat(\"Cat1\");" + "\n"
-            + "putintocat(\"Cat2\");" + "\n"
-	    + "replace(\"Test(\\\\d{2})\", \"Answer$1\");" + "\n"
-            + "}" + "\n"
-            + "addexclude(\"<gallery>\",\"</gallery>\");" + "\n"
-            + "resetexcludes();" + "\n"
-            + "");
-    List<WikiCommand> wcl = parser.Input();
-      for (WikiCommand wikiCommand : wcl) {
-          //wikiCommand.execute(RezepteWiki.buildAndLogin());
-	  System.out.println(wikiCommand);
-      }
-  }
 
 }
 
@@ -142,18 +106,18 @@ void Generator() :
   Deque<Object> pl = null;
   Token command;
 }
-{   
+{
     <T_ORGANIZE> <T_LPAREN> <T_RPAREN> <T_LCURL> ( BlkCommand() )+ <T_RCURL>
   | command=<T_CMD> <T_LPAREN> [ pl=ParameterList() ] <T_RPAREN> { createAndAddCommand(command, pl); } (
-    <T_SEMI> 
+    <T_SEMI>
     | <T_LCURL> ( BlkCommand() )+ <T_RCURL> { if (!generatorstack.isEmpty()) generatorstack.removeFirst(); }
   )
 }
 
 void BlkCommand() :
 {}
-{  
-  (  
+{
+  (
     CatOrganize()
     | Generator()
   )
@@ -180,9 +144,9 @@ void Parameter(Deque<Object> pl) :
 
 void CatOrganize() :
 {
-  List<String> c1; 
-  String c2; 
-  Token t1; 
+  List<String> c1;
+  String c2;
+  Token t1;
   CatOrganizeBuilder cb = new CatOrganizeBuilder();
 }
 {
