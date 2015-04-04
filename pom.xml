@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.hansche</groupId>
     <artifactId>librwb</artifactId>
+    <name>librwb</name>
     <version>1.0</version>
     <packaging>jar</packaging>
     <build>
@@ -60,7 +61,7 @@
         <dependency>
             <groupId>org.wikipedia</groupId>
             <artifactId>wiki-java</artifactId>
-            <version>0.31-SNAPSHOT</version>
+            <version>0.31-librwb</version>
         </dependency>
     </dependencies>
     <properties>
@@ -68,5 +69,4 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
-    <name>librwb</name>
 </project>
