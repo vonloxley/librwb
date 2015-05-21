@@ -43,7 +43,7 @@ public class Wiki extends org.wikipedia.Wiki {
     private List<Integer> workingnamespaces;
 
     public Wiki(String domain, String scriptPath) {
-        super(domain, scriptPath);
+        super(domain, scriptPath, "http://");
     }
 
     /**
@@ -259,7 +259,7 @@ public class Wiki extends org.wikipedia.Wiki {
                 List<String> r;
                 r = getFromCache(cat);
                 if (r == null) {
-                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, true, getWorkingNamespaces())));
+                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, 999, getWorkingNamespaces())));
                 }
                 putToCache(cat, r);
                 return r;
@@ -329,7 +329,7 @@ public class Wiki extends org.wikipedia.Wiki {
      */
     public List<String> getFromCache(String ident) {
         List<String> r = null;
-        
+
         if (catcache != null) {
             r = catcache.get(ident);
         }
@@ -412,7 +412,7 @@ public class Wiki extends org.wikipedia.Wiki {
         if (workingnamespaces == null){
             return new int[]{Wiki.MAIN_NAMESPACE};
         }
-        
+
         return Utils.toIntArray(workingnamespaces);
     }
 
