@@ -43,8 +43,8 @@ public class RemoveIfInSubcat implements WikiCommand {
         }
 
         try {
-            List<String> cats = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, Wiki.CATEGORY_NAMESPACE)));
-            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, rwiki.getWorkingNamespaces())));
+            List<String> cats = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, false, Wiki.CATEGORY_NAMESPACE)));
+            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, false, rwiki.getWorkingNamespaces())));
             List<String> dest = new ArrayList<>();
 
             for (String acat : cats) {
@@ -92,10 +92,10 @@ public class RemoveIfInSubcat implements WikiCommand {
     }
 
     private void putIntoDstIfInSrc(Wiki rwiki, String cat, List<String> src, List<String> dst) throws IOException {
-        List<String> p = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, 0)));
+        List<String> p = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, false, 0)));
         p.retainAll(src);
         dst.addAll(p);
-        List<String> c = Arrays.asList(rwiki.getCategoryMembers(cat, 14));
+        List<String> c = Arrays.asList(rwiki.getCategoryMembers(cat, false, 14));
         for (String string : c) {
             putIntoDstIfInSrc(rwiki, string, src, dst);
 
