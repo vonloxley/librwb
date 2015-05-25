@@ -60,6 +60,6 @@ public class PageList implements PageGenerator {
 
     @Override
     public String toString() {
-        return "[" + String.join(", ", plist) + (parentpg!=null?parentpg.toString():"") +"]";
+        return "[" + plist.toString() + (parentpg!=null?parentpg.toString():"") +"]";
     }
 }

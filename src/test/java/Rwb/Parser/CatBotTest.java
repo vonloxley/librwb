@@ -92,14 +92,14 @@ public class CatBotTest {
     @Test
     public void testNestedGenerators() throws ParseException {
         mkParserTest(
-                "Test nested generators", "recent(100){pagelist([[P1]]) {putintocat(\"Recent100P1\");}}", "[CatPutRemove: Put into: [Recent100P1]. Pages: [[P1[RecentChanges: 100]]]]"
+                "Test nested generators", "recent(100){pagelist([[P1]]) {putintocat(\"Recent100P1\");}}", "[CatPutRemove: Put into: [Recent100P1]. Pages: [[[P1][RecentChanges: 100]]]]"
         );
     }
 
     @Test
     public void testPutIntoCat() throws ParseException {
         mkParserTest(
-                "Test putintocat", "pagelist([[P1]], [[P2]]) {putintocat(\"Cat1\");}", "[CatPutRemove: Put into: [Cat1]. Pages: [[P1, P2]]]"
+                "Test putintocat", "pagelist([[P1]], [[P2]]) {putintocat(\"Cat1\");}", "[CatPutRemove: Put into: [Cat1]. Pages: [[[P1, P2]]]]"
         );
     }
 
