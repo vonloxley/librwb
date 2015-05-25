@@ -80,7 +80,7 @@ public class Categories {
         } else {
             for (Iterator<String> it = page.getRemovedCategories().iterator(); it.hasNext();) {
                 String string = it.next();
-                if (string.contains(dst)) {
+                if (string.contains(dst+"|") || string.contains(dst+"]]")) {
                     it.remove();
                 }
 
