@@ -73,6 +73,11 @@ public class CatBotTest {
     public void testSearchNS2() throws ParseException {
         mkParserTest("Test searchNS", "searchns(\"main+111+115\",0, 111, 115){printtitle();}", "[Printtitle: Pages: [[SearchNS: main+111+115(0, 111, 115)]]]");
     }
+     
+    @Test
+    public void testSearchNS3() throws ParseException {
+        mkParserTest("Test searchNS3", "searchns(\"main+-2\",0, -2){printtitle();}", "[Printtitle: Pages: [[SearchNS: main+-2(0, -2)]]]");
+    }
 
     @Test
     public void testOrganize() throws ParseException {

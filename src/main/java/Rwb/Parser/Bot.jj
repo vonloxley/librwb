@@ -62,7 +62,7 @@ TOKEN:
   |	< T_RPIPE:	"-->"							>
   |	< T_LPIPE:	"<--"							>
   |	< T_LETTER:	[ "A"-"Z", "a"-"z" ]					>
-  |	< T_INT:	( [ "0"-"9" ] )+					>
+  |	< T_INT:	( "-" )? ( [ "0"-"9" ] )+					>
   |	< T_PUNCT:	( "." | "-" | "_" )					>
   |	< T_DIGIT:	[ "0"-"9" ]						>
   |	< T_CMD:	<T_LETTER> ( <T_LETTER> | <T_DIGIT> | <T_PUNCT> )*	>
