@@ -92,7 +92,7 @@ public class RemoveIfInSubcat implements WikiCommand {
     }
 
     private void putIntoDstIfInSrc(Wiki rwiki, String cat, List<String> src, List<String> dst) throws IOException {
-        List<String> p = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, false, 0)));
+        List<String> p = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(cat, false, rwiki.getWorkingNamespaces())));
         p.retainAll(src);
         dst.addAll(p);
         List<String> c = Arrays.asList(rwiki.getCategoryMembers(cat, false, 14));
