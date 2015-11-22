@@ -46,7 +46,7 @@ public class CatGraph {
     static Wiki rwiki;
 
     public static void addEdges(String parent, DirectedGraph<String, DefaultEdge> dg) throws IOException {
-        List<String> c = Arrays.asList(rwiki.getCategoryMembers(parent, 14));
+        List<String> c = Arrays.asList(rwiki.getCategoryMembers(parent, new int[]{14}));
         for (String cat : c) {
             dg.addVertex(cat);
             dg.addEdge(cat, parent);
@@ -67,11 +67,11 @@ public class CatGraph {
         DirectedGraph<String, DefaultEdge> dg = buildcatgraph("Kategorie:Vegetarische Rezepte");
 
         showGraph(dg);
-        
+
         System.out.println(dg);
         System.out.println(dg.incomingEdgesOf("Kategorie:Vegane Suppen"));
         System.out.println(dg.outgoingEdgesOf("Kategorie:Vegane Suppen"));
-        
+
     }
 
     public static void showGraph(DirectedGraph<String, DefaultEdge> dg) throws HeadlessException {
