@@ -43,7 +43,7 @@ public class Wiki extends org.wikipedia.Wiki {
     private List<Integer> workingnamespaces;
 
     public Wiki(String domain, String scriptPath) {
-        super(domain, scriptPath, "http://");
+        super(domain, scriptPath, "https://");
     }
 
     /**
