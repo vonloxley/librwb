@@ -6,6 +6,7 @@ import java.awt.HeadlessException;
 import java.io.ByteArrayOutputStream;
 import java.io.Console;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -21,6 +22,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.security.auth.login.LoginException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,6 +43,7 @@ public class Wiki extends org.wikipedia.Wiki {
     private Map<String, String> pagecache;
     private List<IgnorePosition> ignorepositions;
     private List<Integer> workingnamespaces;
+    private final Pattern inuse = Pattern.compile("\\{\\{\\s*inuse|nobots\\s*\\}\\}", Pattern.CASE_INSENSITIVE);
 
     public Wiki(String domain, String scriptPath) {
         super(domain, scriptPath, "https://");
@@ -103,8 +106,12 @@ public class Wiki extends org.wikipedia.Wiki {
         }
 
         String p = pagecache.get(title);
+
         if (p == null) {
             p = super.getPageText(title);
+            if (inuse.matcher(p).find()) {
+                throw new FileNotFoundException("Page contains inuse or disallows bots.");
+            }
             pagecache.put(title, p);
         }
 
@@ -409,7 +416,7 @@ public class Wiki extends org.wikipedia.Wiki {
     }
 
     public int[] getWorkingNamespaces() {
-        if (workingnamespaces == null){
+        if (workingnamespaces == null) {
             return new int[]{Wiki.MAIN_NAMESPACE};
         }
 
