@@ -266,7 +266,7 @@ public class Wiki extends org.wikipedia.Wiki {
                 List<String> r;
                 r = getFromCache(cat);
                 if (r == null) {
-                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, 999, getWorkingNamespaces())));
+                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, 999, false, getWorkingNamespaces())));
                 }
                 putToCache(cat, r);
                 return r;
