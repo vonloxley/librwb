@@ -18,6 +18,7 @@ package Rwb.Categories;
 
 import Rwb.Page;
 import Rwb.Wiki;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class Categories {
 
     private static final String LINK_START = "\\[\\[";
     private static final String LINK_END = "\\]\\]\\r?\\n?";
-    private static final String CATEGORY_RE = LINK_START + "\\s*(?:Kategorie|Category)\\s*:\\s*([^:\\s\\]|]+)\\s*(?:|.+?)" + LINK_END;
+    private static final String CATEGORY_RE = LINK_START + "\\s*(?:Kategorie|Category)\\s*:\\s*([^:\\]|]+)\\s*(?:|.+?)" + LINK_END;
 
     private Categories() {
     }
@@ -80,7 +81,7 @@ public class Categories {
         } else {
             for (Iterator<String> it = page.getRemovedCategories().iterator(); it.hasNext();) {
                 String string = it.next();
-                if (string.contains(dst+"|") || string.contains(dst+"]]")) {
+                if (string.contains(":" + dst + "|") || string.contains(":" + dst + "]]")) {
                     it.remove();
                 }
 
