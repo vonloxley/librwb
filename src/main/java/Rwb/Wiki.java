@@ -109,6 +109,10 @@ public class Wiki extends org.wikipedia.Wiki {
 
         if (p == null) {
             p = super.getPageText(title);
+            if (p == null) {
+                throw new FileNotFoundException("Page text not available.");
+            }
+
             if (inuse.matcher(p).find()) {
                 throw new FileNotFoundException("Page contains inuse or disallows bots.");
             }
