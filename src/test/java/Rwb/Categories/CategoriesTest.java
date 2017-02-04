@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package Rwb.Categories;
 
 import Rwb.Page;
@@ -32,22 +31,25 @@ import org.junit.Test;
  * @author Niki Hansche
  */
 public class CategoriesTest {
-    
+
+    static Wiki w;
+
     public CategoriesTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
+        w = new Wiki("kochwiki.org", "/w");
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -60,7 +62,7 @@ public class CategoriesTest {
         System.out.println("removeAllCategoryLinks");
         String page = "Bla\n[[:Kategorie:Jo]]\n[[Kategorie:Raus1]]\n[[Kategorie:Raus2]][[Kategorie:Raus1]]\n[[Kategorie:Raus3]]\n\n";
         Page expResult = new Page("Bla\n[[:Kategorie:Jo]]\n\n\n");
-        Page result = Categories.removeAllCategoryLinks(page, new Rwb.Wiki("",""));
+        Page result = Categories.removeAllCategoryLinks(page, new Rwb.Wiki("", ""));
         assertEquals(expResult.getText().trim(), result.getText().trim());
     }
 
@@ -75,10 +77,38 @@ public class CategoriesTest {
         Map<String, String> result = Categories.getAllCategories(page);
         System.out.println(result);
         assertEquals(
-                "{[[Kategorie:Raus3]]\n" +
-                "=Raus3, [[Kategorie:Raus1]]\n" +
-                "=Raus1, [[Kategorie:Raus2]]=Raus2}"
-                , result.toString());
+                "{[[Kategorie:Raus3]]\n"
+                + "=Raus3, [[Kategorie:Raus1]]\n"
+                + "=Raus1, [[Kategorie:Raus2]]=Raus2}", result.toString());
     }
-    
+
+    /**
+     * Test of removeCategory method, of class Categories.
+     */
+    @Test
+    public void testRemoveCategory() {
+        System.out.println("removeCategory");
+
+        String page = "[[Kategorie:Balkanküche]]\n"
+                + "[[Kategorie:Beilagen]]\n"
+                + "[[Kategorie:Bulgarische Küche]]\n"
+                + "[[Kategorie:Kroatische Küche]]\n"
+                + "[[Kategorie:Salat|Salat]]\n"
+                + "[[Kategorie:Serbische Küche]]\n"
+                + "[[Kategorie:Vegetarische Rezepte]]\n"
+                + "[[Kategorie:Vegetarische Vorspeise]]";
+
+        String expRes = "[[Kategorie:Balkanküche]]\n"
+                + "[[Kategorie:Beilagen]]\n"
+                + "[[Kategorie:Bulgarische Küche]]\n"
+                + "[[Kategorie:Kroatische Küche]]\n"
+                + "[[Kategorie:Salat|Salat]]\n"
+                + "[[Kategorie:Serbische Küche]]\n"
+                + "[[Kategorie:Vegetarische Vorspeise]]";
+
+        String res = Categories.removeCategory(page, "Vegetarische Rezepte", w);
+
+        assertEquals(expRes.trim(), res.trim());
+    }
+
 }
