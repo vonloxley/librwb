@@ -287,8 +287,9 @@ public class Wiki extends org.wikipedia.Wiki {
         ObjectOutputStream out = null;
         try {
             File f = new File(FileName);
-            f.setReadable(true, true);
-            f.setWritable(true, true);
+            if (!f.setReadable(true, true)|| !f.setWritable(true, true)){
+                throw new RuntimeException(FileName + "nicht beschreibbar.");
+            }
             out = new ObjectOutputStream(new FileOutputStream(f));
             out.writeObject(this);
         } catch (IOException ex) {
