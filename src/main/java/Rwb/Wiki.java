@@ -39,9 +39,9 @@ public class Wiki extends org.wikipedia.Wiki {
     private String summary = "";
     private Boolean allgo = false;
     private Map<String, List<String>> catcache;
-    private List<CommitRecord> commitcache;
-    private Map<String, String> pagecache;
-    private List<IgnorePosition> ignorepositions;
+    private transient List<CommitRecord> commitcache;
+    private transient Map<String, String> pagecache;
+    private transient List<IgnorePosition> ignorepositions;
     private List<Integer> workingnamespaces;
     private final Pattern inuse = Pattern.compile("\\{\\{\\s*inuse|nobots\\s*\\}\\}", Pattern.CASE_INSENSITIVE);
 
