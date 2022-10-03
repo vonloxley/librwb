@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,17 +38,18 @@ public class Search implements PageGenerator {
 
     @Override
     public List<String> generatePages(Wiki rwiki) {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         if (searchterm == null) {
             throw new ParameterException(SEARCH_ERR);
         }
 
         try {
-            String[][] r = rwiki.search(searchterm, rwiki.getWorkingNamespaces());
-            for (String[] s : r) {
-                if (!list.contains(s[0])) {
-                    list.add(s[0]);
+            List<Map<String, Object>> r = rwiki.search(searchterm, rwiki.getWorkingNamespaces());
+            for (Map<String, Object> s : r) {
+                String t = (String) s.get("title");
+                if (!list.contains(t)) {
+                    list.add(t);
                 }
             }
 

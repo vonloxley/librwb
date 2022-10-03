@@ -37,7 +37,7 @@ public class LinksTo implements PageGenerator {
 
     @Override
     public List<String> generatePages(Wiki rwiki) {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         if (destpage == null) {
             throw new ParameterException(RECENT_ERR);

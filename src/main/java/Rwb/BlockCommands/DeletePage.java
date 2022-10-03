@@ -46,7 +46,7 @@ public class DeletePage implements WikiBlockCommand {
             System.out.println("Delete "+p+"?");
             if (rwiki.getGo()) {
                 try {
-                    rwiki.delete(p, p);
+                    rwiki.delete(p, p, true);
                 } catch (IOException | LoginException ex) {
                     Logger.getLogger(DeletePage.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -37,17 +37,20 @@ public class RecentChanges implements PageGenerator {
 
     @Override
     public List<String> generatePages(Wiki rwiki) {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         if (count == null) {
             throw new ParameterException(RECENT_ERR);
         }
 
         try {
-            Wiki.Revision[] r = rwiki.recentChanges(count, rwiki.getWorkingNamespaces());
+            //count, rwiki.getWorkingNamespaces()
+            Wiki.RequestHelper helper= rwiki.new RequestHelper();
+            helper = helper.inNamespaces(rwiki.getWorkingNamespaces()).limitedTo(count);
+            List<org.wikipedia.Wiki.Revision> r = rwiki.recentChanges(helper);
             for (Wiki.Revision revision : r) {
-                if (!list.contains(revision.getPage())) {
-                    list.add(revision.getPage());
+                if (!list.contains(revision.getTitle())) {
+                    list.add(revision.getTitle());
                 }
             }
 

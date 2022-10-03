@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import org.wikiutils.ParseUtils;
  *
  * @author Niki Hansche
  */
-public class Wiki extends org.wikipedia.Wiki {
+public class Wiki extends org.wikipedia.Wiki implements Serializable {
 
     private String summary = "";
     private Boolean allgo = false;
@@ -79,7 +80,7 @@ public class Wiki extends org.wikipedia.Wiki {
     }
 
     @Override
-    public void edit(String title, String text, String summary, boolean minor, boolean bot, int section, Calendar basetime) throws IOException, LoginException {
+    public synchronized void edit(String title, String text, String summary, boolean minor, boolean bot, int section, OffsetDateTime basetime) throws IOException, LoginException {
         if (commitcache == null) {
             commitcache = new ArrayList<>();
         }
@@ -91,7 +92,6 @@ public class Wiki extends org.wikipedia.Wiki {
         pagecache.remove(title); //Invalidate pagecache early on.
     }
 
-    @Override
     public String getPageText(String title) throws IOException {
         if (commitcache != null) {
             for (int i = commitcache.size() - 1; i >= 0; i--) {
@@ -108,7 +108,7 @@ public class Wiki extends org.wikipedia.Wiki {
         String p = pagecache.get(title);
 
         if (p == null) {
-            p = super.getPageText(title);
+            p = super.getPageText(Arrays.asList(title)).get(0);
             if (p == null) {
                 throw new FileNotFoundException("Page text not available.");
             }
@@ -270,7 +270,7 @@ public class Wiki extends org.wikipedia.Wiki {
                 List<String> r;
                 r = getFromCache(cat);
                 if (r == null) {
-                    r = new ArrayList<>(Arrays.asList(getCategoryMembers(cat, 999, false, getWorkingNamespaces())));
+                    r = getCategoryMembers(cat, 999, false, getWorkingNamespaces());
                 }
                 putToCache(cat, r);
                 return r;
@@ -288,7 +288,7 @@ public class Wiki extends org.wikipedia.Wiki {
         try {
             File f = new File(FileName);
             if (!f.setReadable(true, true)|| !f.setWritable(true, true)){
-                throw new RuntimeException(FileName + "nicht beschreibbar.");
+                //ddthrow new RuntimeException(FileName + " nicht beschreibbar.");
             }
             out = new ObjectOutputStream(new FileOutputStream(f));
             out.writeObject(this);
@@ -473,9 +473,9 @@ public class Wiki extends org.wikipedia.Wiki {
         final boolean minor;
         final boolean bot;
         final int section;
-        final Calendar basetime;
+        final OffsetDateTime basetime;
 
-        public CommitRecord(String title, String text, String summary, boolean minor, boolean bot, int section, Calendar basetime) {
+        public CommitRecord(String title, String text, String summary, boolean minor, boolean bot, int section, OffsetDateTime basetime) {
             this.title = title;
             this.text = text;
             this.summary = summary;

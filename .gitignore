@@ -10,3 +10,5 @@ release.properties
 logindat.rwb
 /documentation/*.html
 /libs
+src/main/java/Rwb/Parser/Bot.html
+src/main/java/Rwb/Parser/Bot.txt

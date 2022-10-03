@@ -20,8 +20,6 @@ import Rwb.Categories.Categories;
 import Rwb.ParameterException;
 import Rwb.Wiki;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,7 +42,7 @@ public class RenameCat implements WikiCommand {
         }
 
         try {
-            List<String> pages = new ArrayList<>(Arrays.asList(rwiki.getCategoryMembers(fromcat, rwiki.getWorkingNamespaces())));
+            List<String> pages = rwiki.getCategoryMembers(fromcat, rwiki.getWorkingNamespaces());
 
             for (String page : pages) {
                 String pagetext;

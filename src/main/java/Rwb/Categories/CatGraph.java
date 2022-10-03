@@ -19,14 +19,12 @@ package Rwb.Categories;
 
 import Rwb.Wiki;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
-import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import javax.security.auth.login.FailedLoginException;
 import javax.swing.JFrame;
@@ -46,7 +44,7 @@ public class CatGraph {
     static Wiki rwiki;
 
     public static void addEdges(String parent, DirectedGraph<String, DefaultEdge> dg) throws IOException {
-        List<String> c = Arrays.asList(rwiki.getCategoryMembers(parent, new int[]{14}));
+        List<String> c = rwiki.getCategoryMembers(parent, 14);
         for (String cat : c) {
             dg.addVertex(cat);
             dg.addEdge(cat, parent);

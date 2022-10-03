@@ -44,7 +44,7 @@ public class Category implements PageGenerator {
         }
 
         try {
-            String[] r = rwiki.getCategoryMembers(destpage, 999, false, new int[]{Wiki.MAIN_NAMESPACE});
+            List<String> r = rwiki.getCategoryMembers(destpage, 999, false, Wiki.MAIN_NAMESPACE);
             for (String revision : r) {
                 if (!list.contains(revision)) {
                     list.add(revision);
